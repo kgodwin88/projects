@@ -9,7 +9,8 @@ $(document).ready(function(){
     };
     firebase.initializeApp(config);
     var database = firebase.database();
-   
+    var storage = firebase.storage();
+
     $("#modalSignIn").on("click", function(){
         event.preventDefault();
         var email = $("#email").val().trim();
@@ -36,14 +37,14 @@ $(document).ready(function(){
     });
         firebase.auth().onAuthStateChanged(function(user){
             if(user){
-                $("#logout").classList.remove("d-none");
+                $("#logout").removeClass("d-none");
                 console.log(user);
-                $("#signIn").classList.add("d-none")
+                $("#signIn").addClass("d-none")
             }
             else{
                 console.log("logged out");
-                $("#logout").classList.add("d-none");
-                $("#signIn").classList.remove("d-none")
+                $("#logout").addClass("d-none");
+                $("#signIn").removeClass("d-none")
             };
         });
     
@@ -55,11 +56,11 @@ $(document).ready(function(){
             name: artist,
             song: song,
         };
-        database.ref().push(newArtist);
+        storage.ref().put(newArtist);
         $("#artistForm")[0].reset()
     });
 
-    database.ref().on("child_added", function(snapshot){
+    storage.ref().on("child_added", function(snapshot){
         var name = snapshot.val().name;
         var song = snapshot.val().song;
         $("#favoriteTable > tbody").append("<tr value = artist + '+' song><td>" + name + "</td><td>" + song + "</td></tr>")
