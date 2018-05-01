@@ -36,14 +36,14 @@ $(document).ready(function(){
     });
         firebase.auth().onAuthStateChanged(function(user){
             if(user){
-                //$("#logout").classList.remove("d-none");
+                $("#logout").classList.remove("d-none");
                 console.log(user);
-               // $("#signIn").classList.add("d-none")
+                $("#signIn").classList.add("d-none")
             }
             else{
                 console.log("logged out");
-                //$("#logout").classList.add("d-none");
-               // $("#signIn").classList.remove("d-none")
+                $("#logout").classList.add("d-none");
+                $("#signIn").classList.remove("d-none")
             };
         });
     
@@ -104,7 +104,7 @@ $(document).ready(function(){
 
         
         $.ajax({
-            url : "http://api.musixmatch.com/ws/1.1/track.search",
+            url : "https://api.musixmatch.com/ws/1.1/track.search",
                 
 
             data:{
