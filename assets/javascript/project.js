@@ -47,7 +47,13 @@ $(document).ready(function(){
                 $("#signIn").addClass("d-none")
                 userID =auth.currentUser.uid;
                 console.log(userID)
-
+            }
+            else{
+                console.log("logged out");
+                $("#logout").addClass("d-none");
+                $("#signIn").removeClass("d-none")
+                $("#favoritesTable > tbody").clear();
+            };
     $("#addFavorite").on("click", function(event){
         event.preventDefault();
         var artist = $("#artist").val().trim();
@@ -65,14 +71,6 @@ $(document).ready(function(){
         var song = snapshot.val().song;
         $("#favoritesTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
     });
-}
-    else{
-        console.log("logged out");
-        $("#logout").addClass("d-none");
-        $("#signIn").removeClass("d-none")
-        $("#favoritesTable > tbody").clear();
-    };
- 
         });
     $("#addMusic").on("click", function(event){
         event.preventDefault();
