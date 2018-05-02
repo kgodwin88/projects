@@ -70,7 +70,8 @@ $(document).ready(function(){
     database.ref(userID).on("child_added", function(snapshot){
         var name = snapshot.val().name;
         var song = snapshot.val().song;
-        $("#favoriteTable > tbody").append("<tr value = artist + '+' song><td>" + name + "</td><td>" + song + "</td></tr>")
+        console.log(snapshot);
+        $("#favoriteTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
     })
  
         });
