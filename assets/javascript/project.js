@@ -52,7 +52,7 @@ $(document).ready(function(){
             console.log("logged out");
             $("#logout").addClass("d-none");
             $("#signIn").removeClass("d-none")
-            $("#favoritesTable > tbody").clear();
+            $("#favoritesTable > tbody").empty();
         };
     $("#addFavorite").on("click", function(event){
         event.preventDefault();
