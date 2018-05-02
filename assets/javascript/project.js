@@ -37,6 +37,7 @@ $(document).ready(function(){
     $("#logout").on("click", function(){
         auth.signOut().then(function() {
             // Sign-out successful.
+            location.reload();
           }).catch(function(error) {
             // An error happened.
           });
