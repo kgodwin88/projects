@@ -38,8 +38,9 @@ $(document).ready(function(){
         auth.onAuthStateChanged(function(user){
             if(user){
                 $("#logout").removeClass("d-none");
-                console.log(user);
                 $("#signIn").addClass("d-none")
+                var userID =auth.currentUser.uid;
+                console.log(userID)
             }
             else{
                 console.log("logged out");
@@ -63,11 +64,11 @@ $(document).ready(function(){
             name: artist,
             song: song,
         };
-        database.ref().put(newArtist);
+        database.ref(userID).push(newArtist);
         $("#artistForm")[0].reset()
     });
 
-    database.ref().on("child_added", function(snapshot){
+    database.ref(userID).on("child_added", function(snapshot){
         var name = snapshot.val().name;
         var song = snapshot.val().song;
         $("#favoriteTable > tbody").append("<tr value = artist + '+' song><td>" + name + "</td><td>" + song + "</td></tr>")
