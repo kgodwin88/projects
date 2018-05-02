@@ -34,6 +34,13 @@ $(document).ready(function(){
           });
           $("#modalForm")[0].reset();
     });
+    $("#logout").on("click", function(){
+        auth.signOut().then(function() {
+            // Sign-out successful.
+          }).catch(function(error) {
+            // An error happened.
+          });
+    });
         auth.onAuthStateChanged(function(user){
             if(user){
                 $("#logout").removeClass("d-none");
@@ -46,14 +53,7 @@ $(document).ready(function(){
                 $("#logout").addClass("d-none");
                 $("#signIn").removeClass("d-none")
             };
-        });
-        $("#logout").on("click", function(){
-            auth.signOut().then(function() {
-                // Sign-out successful.
-              }).catch(function(error) {
-                // An error happened.
-              });
-        })
+      
     
     $("#addFavorite").on("click", function(event){
         event.preventDefault();
@@ -73,7 +73,7 @@ $(document).ready(function(){
         $("#favoriteTable > tbody").append("<tr value = artist + '+' song><td>" + name + "</td><td>" + song + "</td></tr>")
     })
  
-
+        });
     $("#addMusic").on("click", function(event){
         event.preventDefault();
         var artist = $("#artist").val().trim();
