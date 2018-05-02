@@ -71,7 +71,7 @@ $(document).ready(function(){
         var name = snapshot.val().name;
         var song = snapshot.val().song;
         console.log(snapshot);
-        $("#favoriteTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
+        $("#favoritesTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
     })
  
         });
