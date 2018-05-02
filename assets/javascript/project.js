@@ -45,7 +45,17 @@ $(document).ready(function(){
         if(user){
             $("#logout").removeClass("d-none");
             $("#signIn").addClass("d-none")
-            
+            function addFav(){
+                var userId = auth.currentUser.uid;
+                database.ref(userId).push(newArtist);
+            };
+            function displayFavs(){
+                database.ref(userID).on("child_added", function(snapshot){
+                    var name = snapshot.val().name;
+                    var song = snapshot.val().song;
+                    $("#favoritesTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
+                });
+            }
         }
         else{
             console.log("logged out");
@@ -58,24 +68,17 @@ $(document).ready(function(){
         var userID =auth.currentUser.uid;
     $("#addFavorite").on("click", function(event){
         event.preventDefault();
-        addFav();
-        $("#artistForm")[0].reset()
-    });
-        function addFav(){
-            var artist = $("#artist").val().trim();
-            var song = $("#song").val().trim();
-            var newArtist = {
-                name: artist,
-                song: song, 
-                
-            };
-            database.ref(userID).push(newArtist);
+        var artist = $("#artist").val().trim();
+        var song = $("#song").val().trim();
+        var newArtist = {
+            name: artist,
+            song: song,             
         };
-        database.ref(userID).on("child_added", function(snapshot){
-            var name = snapshot.val().name;
-            var song = snapshot.val().song;
-            $("#favoritesTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
+        addFav();
+        displayFavs();
+        $("#artistForm")[0].reset();      
         });
+     
     });
     $("#addMusic").on("click", function(event){
         event.preventDefault();
