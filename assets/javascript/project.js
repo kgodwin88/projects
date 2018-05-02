@@ -10,7 +10,6 @@ $(document).ready(function(){
     firebase.initializeApp(config);
     var database = firebase.database();
     var auth = firebase.auth();
-    var userID =auth.currentUser.uid;
     $("#modalSignIn").on("click", function(){
         event.preventDefault();
         var email = $("#email").val().trim();
@@ -39,6 +38,7 @@ $(document).ready(function(){
             if(user){
                 $("#logout").removeClass("d-none");
                 $("#signIn").addClass("d-none")
+                var userID =auth.currentUser.uid;
                 console.log(userID)
             }
             else{
@@ -46,7 +46,7 @@ $(document).ready(function(){
                 $("#logout").addClass("d-none");
                 $("#signIn").removeClass("d-none")
             };
-        });
+        })
         $("#logout").on("click", function(){
             auth.signOut().then(function() {
                 // Sign-out successful.
