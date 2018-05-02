@@ -41,36 +41,39 @@ $(document).ready(function(){
             // An error happened.
           });
     });
-        auth.onAuthStateChanged(function(user){
-            if(user){
-                $("#logout").removeClass("d-none");
-                $("#signIn").addClass("d-none")
-                userID =auth.currentUser.uid;
-                console.log(userID)
-            }
-            else{
-                console.log("logged out");
-                $("#logout").addClass("d-none");
-                $("#signIn").removeClass("d-none")
-                $("#favoritesTable > tbody").clear();
-            };
+    auth.onAuthStateChanged(function(user){
+        if(user){
+            $("#logout").removeClass("d-none");
+            $("#signIn").addClass("d-none")
+            userID =auth.currentUser.uid;
+            console.log(userID)
+        }
+        else{
+            console.log("logged out");
+            $("#logout").addClass("d-none");
+            $("#signIn").removeClass("d-none")
+            $("#favoritesTable > tbody").clear();
+        };
     $("#addFavorite").on("click", function(event){
         event.preventDefault();
-        var artist = $("#artist").val().trim();
-        var song = $("#song").val().trim();
-        var newArtist = {
-            name: artist,
-            song: song,
-        };
-        database.ref(userID).push(newArtist);
+        addFav();
         $("#artistForm")[0].reset()
     });
-
-    database.ref(userID).on("child_added", function(snapshot){
-        var name = snapshot.val().name;
-        var song = snapshot.val().song;
-        $("#favoritesTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
-    });
+        function addFav(){
+            var artist = $("#artist").val().trim();
+            var song = $("#song").val().trim();
+            var newArtist = {
+                name: artist,
+                song: song, 
+            };
+            database.ref(userID).push(newArtist);
+        };
+   
+        });
+        database.ref(userID).on("child_added", function(snapshot){
+            var name = snapshot.val().name;
+            var song = snapshot.val().song;
+            $("#favoritesTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
         });
     $("#addMusic").on("click", function(event){
         event.preventDefault();
