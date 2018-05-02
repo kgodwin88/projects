@@ -46,6 +46,7 @@ $(document).ready(function(){
             $("#logout").removeClass("d-none");
             $("#signIn").addClass("d-none");
             var userId = auth.currentUser.uid;
+            console.log("on auth change " + userId)
             clickAdd(userId); 
         }
         else{
@@ -69,7 +70,7 @@ $(document).ready(function(){
             }
             else{
                 database.ref(userId).push(newArtist);
-    
+                console.log("inside the function " + userId);
             }
             $("#artistForm")[0].reset();      
             });
