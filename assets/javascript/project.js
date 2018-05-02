@@ -38,7 +38,7 @@ $(document).ready(function(){
             if(user){
                 $("#logout").removeClass("d-none");
                 $("#signIn").addClass("d-none")
-                var userID =auth.currentUser.uid;
+                userID =auth.currentUser.uid;
                 console.log(userID)
             }
             else{
@@ -46,7 +46,7 @@ $(document).ready(function(){
                 $("#logout").addClass("d-none");
                 $("#signIn").removeClass("d-none")
             };
-        })
+        });
         $("#logout").on("click", function(){
             auth.signOut().then(function() {
                 // Sign-out successful.
