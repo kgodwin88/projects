@@ -10,7 +10,7 @@ $(document).ready(function(){
     firebase.initializeApp(config);
     var database = firebase.database();
     var auth = firebase.auth();
-
+    var userID =auth.currentUser.uid;
     $("#modalSignIn").on("click", function(){
         event.preventDefault();
         var email = $("#email").val().trim();
@@ -39,7 +39,6 @@ $(document).ready(function(){
             if(user){
                 $("#logout").removeClass("d-none");
                 $("#signIn").addClass("d-none")
-                var userID =auth.currentUser.uid;
                 console.log(userID)
             }
             else{
