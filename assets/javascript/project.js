@@ -44,9 +44,10 @@ $(document).ready(function(){
     auth.onAuthStateChanged(function(user){
         if(user){
             $("#logout").removeClass("d-none");
-            $("#signIn").addClass("d-none")
+            $("#signIn").addClass("d-none");
+            var userId = auth.currentUser.uid;
+            clickAdd();
             function addFav(){
-                var userId = auth.currentUser.uid;
                 database.ref(userId).push(newArtist);
             };
             function displayFavs(){
@@ -64,22 +65,25 @@ $(document).ready(function(){
             $("#favoritesTable > tbody").empty();
         };
     });
-    auth.onAuthStateChanged(function(){
-        var userID =auth.currentUser.uid;
-    $("#addFavorite").on("click", function(event){
-        event.preventDefault();
-        var artist = $("#artist").val().trim();
-        var song = $("#song").val().trim();
-        var newArtist = {
-            name: artist,
-            song: song,             
-        };
-        addFav();
-        displayFavs();
-        $("#artistForm")[0].reset();      
-        });
-     
-    });
+    function clickAdd(){
+        $("#addFavorite").on("click", function(event){
+            event.preventDefault();
+            var artist = $("#artist").val().trim();
+            var song = $("#song").val().trim();
+            var newArtist = {
+                name: artist,
+                song: song,             
+            };
+            if(artist === "" && song === ""){
+
+            }
+            else{
+            addFav();
+            displayFavs();
+            }
+            $("#artistForm")[0].reset();      
+            });
+    };
     $("#addMusic").on("click", function(event){
         event.preventDefault();
         var artist = $("#artist").val().trim();
