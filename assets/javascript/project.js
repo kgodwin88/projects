@@ -45,8 +45,7 @@ $(document).ready(function(){
         if(user){
             $("#logout").removeClass("d-none");
             $("#signIn").addClass("d-none")
-            userID =auth.currentUser.uid;
-            console.log(userID)
+            
         }
         else{
             console.log("logged out");
@@ -54,6 +53,9 @@ $(document).ready(function(){
             $("#signIn").removeClass("d-none")
             $("#favoritesTable > tbody").empty();
         };
+    });
+    auth.onAuthStateChanged(function(){
+        var userID =auth.currentUser.uid;
     $("#addFavorite").on("click", function(event){
         event.preventDefault();
         addFav();
@@ -65,6 +67,7 @@ $(document).ready(function(){
             var newArtist = {
                 name: artist,
                 song: song, 
+                
             };
             database.ref(userID).push(newArtist);
         };
