@@ -70,13 +70,14 @@ $(document).ready(function(){
             else{
                 database.ref(userId).push(newArtist);
     
-                database.ref(userID).on("child_added", function(snapshot){
-                    var name = snapshot.val().name;
-                    var song = snapshot.val().song;
-                    $("#favoritesTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
-                });
             }
             $("#artistForm")[0].reset();      
+            });
+            
+            database.ref(userId).on("child_added", function(snapshot){
+                var name = snapshot.val().name;
+                var song = snapshot.val().song;
+                $("#favoritesTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
             });
     };
     $("#addMusic").on("click", function(event){
