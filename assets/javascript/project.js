@@ -9,13 +9,13 @@ $(document).ready(function(){
     };
     firebase.initializeApp(config);
     var database = firebase.database();
-    var storage = firebase.storage();
+    var auth = firebase.auth();
 
     $("#modalSignIn").on("click", function(){
         event.preventDefault();
         var email = $("#email").val().trim();
         var password = $("#password").val().trim();
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        auth.signInWithEmailAndPassword(email, password).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -27,7 +27,7 @@ $(document).ready(function(){
         event.preventDefault();
         var email = $("#email").val().trim();
         var password = $("#password").val().trim();
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -35,7 +35,7 @@ $(document).ready(function(){
           });
           $("#modalForm")[0].reset();
     });
-        firebase.auth().onAuthStateChanged(function(user){
+        auth.onAuthStateChanged(function(user){
             if(user){
                 $("#logout").removeClass("d-none");
                 console.log(user);
@@ -47,6 +47,13 @@ $(document).ready(function(){
                 $("#signIn").removeClass("d-none")
             };
         });
+        $("#logout").on("click", function(){
+            auth.signOut().then(function() {
+                // Sign-out successful.
+              }).catch(function(error) {
+                // An error happened.
+              });
+        })
     
     $("#addFavorite").on("click", function(event){
         event.preventDefault();
@@ -56,11 +63,11 @@ $(document).ready(function(){
             name: artist,
             song: song,
         };
-        storage.ref().put(newArtist);
+        database.ref().put(newArtist);
         $("#artistForm")[0].reset()
     });
 
-    storage.ref().on("child_added", function(snapshot){
+    database.ref().on("child_added", function(snapshot){
         var name = snapshot.val().name;
         var song = snapshot.val().song;
         $("#favoriteTable > tbody").append("<tr value = artist + '+' song><td>" + name + "</td><td>" + song + "</td></tr>")
