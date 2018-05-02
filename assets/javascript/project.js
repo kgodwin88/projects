@@ -47,7 +47,29 @@ $(document).ready(function(){
             $("#signIn").addClass("d-none");
             var userId = auth.currentUser.uid;
             console.log("on auth change " + userId)
-            clickAdd(userId); 
+            $("#addFavorite").on("click", function(event){
+                event.preventDefault();
+                var artist = $("#artist").val().trim();
+                var song = $("#song").val().trim();
+                var newArtist = {
+                    name: artist,
+                    song: song,             
+                };
+                if(artist === "" && song === ""){
+    
+                }
+                else{
+                    database.ref(userId).push(newArtist);
+                    console.log("inside the function " + userId);
+                }
+                $("#artistForm")[0].reset();      
+                });
+                
+                database.ref(userId).on("child_added", function(snapshot){
+                    var name = snapshot.val().name;
+                    var song = snapshot.val().song;
+                    $("#favoritesTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
+                });
         }
         else{
             console.log("logged out");
@@ -56,31 +78,7 @@ $(document).ready(function(){
             $("#favoritesTable > tbody").empty();
         };
     });
-    function clickAdd(userId){
-        $("#addFavorite").on("click", function(event){
-            event.preventDefault();
-            var artist = $("#artist").val().trim();
-            var song = $("#song").val().trim();
-            var newArtist = {
-                name: artist,
-                song: song,             
-            };
-            if(artist === "" && song === ""){
 
-            }
-            else{
-                database.ref(userId).push(newArtist);
-                console.log("inside the function " + userId);
-            }
-            $("#artistForm")[0].reset();      
-            });
-            
-            database.ref(userId).on("child_added", function(snapshot){
-                var name = snapshot.val().name;
-                var song = snapshot.val().song;
-                $("#favoritesTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
-            });
-    };
     $("#addMusic").on("click", function(event){
         event.preventDefault();
         var artist = $("#artist").val().trim();
