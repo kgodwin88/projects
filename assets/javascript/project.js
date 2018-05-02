@@ -46,17 +46,7 @@ $(document).ready(function(){
             $("#logout").removeClass("d-none");
             $("#signIn").addClass("d-none");
             var userId = auth.currentUser.uid;
-            clickAdd();
-            function addFav(){
-                database.ref(userId).push(newArtist);
-            };
-            function displayFavs(){
-                database.ref(userID).on("child_added", function(snapshot){
-                    var name = snapshot.val().name;
-                    var song = snapshot.val().song;
-                    $("#favoritesTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
-                });
-            }
+            clickAdd(userId); 
         }
         else{
             console.log("logged out");
@@ -65,7 +55,7 @@ $(document).ready(function(){
             $("#favoritesTable > tbody").empty();
         };
     });
-    function clickAdd(){
+    function clickAdd(userId){
         $("#addFavorite").on("click", function(event){
             event.preventDefault();
             var artist = $("#artist").val().trim();
@@ -78,8 +68,13 @@ $(document).ready(function(){
 
             }
             else{
-            addFav();
-            displayFavs();
+                database.ref(userId).push(newArtist);
+    
+                database.ref(userID).on("child_added", function(snapshot){
+                    var name = snapshot.val().name;
+                    var song = snapshot.val().song;
+                    $("#favoritesTable > tbody").append("<tr value =" + name + song + "><td>" + name + "</td><td>" + song + "</td></tr>")
+                });
             }
             $("#artistForm")[0].reset();      
             });
