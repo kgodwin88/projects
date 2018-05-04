@@ -19,8 +19,12 @@ $(document).ready(function(){
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(errorMessage);
+            $("#header").text("Error");
+            $("#message").text(errorMessage)
           });
           $("#modalForm")[0].reset();
+          $("#signin").modal("hide");
+          $("#welcome").modal("show")
     });
     $("#createAccount").on("click", function(){
         event.preventDefault();
@@ -37,17 +41,19 @@ $(document).ready(function(){
     $("#logout").on("click", function(){
         auth.signOut().then(function() {
             // Sign-out successful.
-            location.reload();
+            location.reload(); 
           }).catch(function(error) {
             // An error happened.
           });
     });
     auth.onAuthStateChanged(function(user){
         if(user){
+            $("#header").text("Welcome")
             $("#logout").removeClass("d-none");
             $("#signIn").addClass("d-none");
             var userId = auth.currentUser.uid;
             console.log("on auth change " + userId)
+            $("#message").text(userId);
             $("#addFavorite").on("click", function(event){
                 event.preventDefault();
                 var artist = $("#artist").val().trim();
