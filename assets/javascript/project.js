@@ -28,6 +28,8 @@ $(document).ready(function(){
     });
     $("#createAccount").on("click", function(){
         event.preventDefault();
+        var firstName = $("#firstName").val().trim();
+        var lastName = $("#lastName").val().trim();
         var email = $("#email").val().trim();
         var password = $("#password").val().trim();
         auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
@@ -35,8 +37,16 @@ $(document).ready(function(){
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(errorMessage);
-          });
-          $("#modalForm")[0].reset();
+        });
+        $("#modalForm")[0].reset();
+        $("#signup").modal("hide");
+        function displayName(){
+            usersName = firstName + " " + lastName;
+            user.updateProfile({
+                displayName: usersName
+            });
+        };
+        
     });
     $("#logout").on("click", function(){
         auth.signOut().then(function() {
@@ -48,9 +58,11 @@ $(document).ready(function(){
     });
     auth.onAuthStateChanged(function(user){
         if(user){
+            displayName();
             $("#header").text("Welcome")
             $("#logout").removeClass("d-none");
             $("#signIn").addClass("d-none");
+            $("#signUp").addClass("d-none");
             var userId = auth.currentUser.uid;
             console.log("on auth change " + userId)
             $("#message").text(userId);
@@ -81,7 +93,8 @@ $(document).ready(function(){
         else{
             console.log("logged out");
             $("#logout").addClass("d-none");
-            $("#signIn").removeClass("d-none")
+            $("#signIn").removeClass("d-none");
+            $("#signUp").removeClass("d-none");
             $("#favoritesTable > tbody").empty();
         };
     });

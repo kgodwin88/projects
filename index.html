@@ -50,6 +50,7 @@
                     <div class = "card-header">
                         <strong>Favorites</strong>
                         <button type = "button" class = "btn btn-primary" id = "signIn" data-toggle = "modal" data-target = "#signin">Sign In</button>
+                        <button type = "button" class = "btn btn-primary" id = "signUp" data-toggle = "modal" data-target = "#signup">Sign Up</button>
                         <button type = "button" class = "btn btn-primary d-none" id = "logout">Log Out</button>
                     </div>
                     <div class = "card-body">
@@ -80,7 +81,7 @@
             <div class = "col-md-12" id = "bio"></div>
         </div>
     </div>
-    <div class = "modal fade" id = "signin">
+    <div class = "modal fade" id = "signup">
         <div class = "modal-dialog">
             <div class ="modal-content">
                 <div class = "modal-header">
@@ -89,6 +90,14 @@
                 </div>
                 <div class = "modal-body">
                     <form role = "form" id = "modalForm">
+                        <div class = "form-group">
+                                <label for = "firstName">First Name</label>
+                                <input type = "text" class= "form-control" placeholder = "First Name" id = "firstName">
+                        </div>
+                        <div class = "form-group">
+                                <label for = "lastName">Last Name</label>
+                                <input type = "text" class= "form-control" placeholder = "Last Name" id = "lastName">
+                        </div>
                         <div class = "form-group">
                             <label for = "email">Email</label>
                             <input type = "email" class= "form-control" placeholder = "Email" id = "email">
@@ -100,14 +109,39 @@
                     </form>
                 </div>
                 <div class = "modal-footer">
-                    <button type = "button" class = "btn btn-primary btn-block" id = "modalSignIn">Sign In</button>
-                    <br>
+                    
                     <button type = "button" class = "btn btn-secondary btn-block" id = "createAccount">Create Account</button>
                 </div>
             </div>
         </div>
     </div>
-  
+    <div class = "modal fade" id = "signin">
+            <div class = "modal-dialog">
+                <div class ="modal-content">
+                    <div class = "modal-header">
+                        <h2 class = "modal-title">Sign In</h2>
+                        <button type = "button" class = "close" data-dismiss = "modal">&times;</button>
+                    </div>
+                    <div class = "modal-body">
+                        <form role = "form" id = "modalForm">
+                            <div class = "form-group">
+                                <label for = "email">Email</label>
+                                <input type = "email" class= "form-control" placeholder = "Email" id = "email">
+                            </div>
+                            <div class = "form-group">
+                                    <label for = "password">Password</label>
+                                    <input type = "Password" class= "form-control" placeholder = "Password" id = "password">
+                                </div>
+                        </form>
+                    </div>
+                    <div class = "modal-footer">
+                        <button type = "button" class = "btn btn-primary btn-block" id = "modalSignIn">Sign In</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
     </div>
     <div class = "modal fade" id = "welcome">
         <div class = "modal-dialog">
@@ -120,7 +154,7 @@
                     <p id = "message"></p>
                 </div>
                 <div class = "modal-footer">
-
+                    <button type = "button" class = "btn btn-primary btn-block" id = "close">OK</button>
                 </div>
             </div>
         </div>
